@@ -1,5 +1,8 @@
 # Root dirs
 /.idea/
 
+# Root files
+/db.sqlite3
+
 # Global dirs
 __pycache__/
