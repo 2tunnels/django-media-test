@@ -1,0 +1,5 @@
+# Root dirs
+/.idea/
+
+# Global dirs
+__pycache__/
