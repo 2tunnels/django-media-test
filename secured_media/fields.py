@@ -1,13 +1,15 @@
-from typing import Any, Type
+from abc import ABC, abstractmethod
+from typing import Any, Dict, Type
 
 from django.conf import settings
+from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import FileField
 from django.db.models.base import ModelBase
 
 from secured_media.storage import SecuredFileSystemStorage
 
 
-class SecuredFileField(FileField):
+class SecuredFileField(ABC, FileField):
     storage: SecuredFileSystemStorage
 
     def __init__(self, *args, **kwargs):
@@ -29,3 +31,10 @@ class SecuredFileField(FileField):
         del kwargs["unique"]
         del kwargs["storage"]
         return name, path, args, kwargs
+
+    @abstractmethod
+    def has_permission(self, request: WSGIRequest, instance: ModelBase):
+        pass
+
+    def get_headers(self, request: WSGIRequest) -> Dict[str, str]:
+        return {}

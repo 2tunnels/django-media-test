@@ -10,4 +10,4 @@ if TYPE_CHECKING:
 
 class PrivateDocumentField(SecuredFileField):
     def has_permission(self, request: WSGIRequest, private_document: "PrivateDocument"):
-        return request.user == private_document.uploader or request.user.is_superuser
+        return request.user == private_document.uploader
