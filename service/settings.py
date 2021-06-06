@@ -113,3 +113,4 @@ MEDIA_ROOT = BASE_DIR / "media"
 # Secured media
 
 SECURED_MEDIA_ROOT = BASE_DIR / "secured"
+SECURED_MEDIA_SECRET_KEY = "Pf2c68X6YpjVZEzNfg3zDrL9HiawRZgq48eDQ_Fxve0="
