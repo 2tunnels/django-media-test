@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "secured_media.apps.SecuredMediaConfig",
 ]
 
 AUTH_USER_MODEL = "core.User"
@@ -111,5 +112,4 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # Secured media
 
-SECURED_MEDIA_URL = "/secured/"
 SECURED_MEDIA_ROOT = BASE_DIR / "secured"
