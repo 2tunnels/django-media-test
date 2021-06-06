@@ -10,9 +10,9 @@ from secured_media.utils import decrypt_token
 def secured_file_view(request: WSGIRequest, token: str) -> HttpResponseBase:
     file_name, associated_model, associated_field_name = decrypt_token(token)
 
-    field: SecuredFileField = getattr(associated_model, associated_field_name).field
-
     instance = get_object_or_404(associated_model, **{associated_field_name: file_name})
+
+    field: SecuredFileField = getattr(associated_model, associated_field_name).field
 
     if not field.has_permission(request, instance):
         return HttpResponseForbidden()
