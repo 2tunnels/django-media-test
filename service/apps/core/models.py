@@ -3,7 +3,7 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from secured_media.fields import SecuredFileField
+from service.apps.core.fields import PrivateDocumentField
 
 
 class User(AbstractUser):
@@ -20,7 +20,7 @@ class PublicDocument(models.Model):
 
 class PrivateDocument(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    document = SecuredFileField()
+    document = PrivateDocumentField()
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)

@@ -1,14 +1,16 @@
+from typing import Type
 from urllib.parse import urlencode
 
 from django.core.files.storage import FileSystemStorage
+from django.db.models.base import ModelBase
 from django.urls import reverse
 
 
 class SecuredFileSystemStorage(FileSystemStorage):
-    def __init__(self, *args, **kwargs):
-        self._associated_model = kwargs.pop("associated_model")
-        self._associated_field = kwargs.pop("associated_field")
+    associated_model: Type[ModelBase]
+    associated_field_name: str
 
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     def url(self, name: str):
@@ -20,8 +22,8 @@ class SecuredFileSystemStorage(FileSystemStorage):
             + urlencode(
                 {
                     "name": name,
-                    "associated_model": f"{self._associated_model.__module__}.{self._associated_model.__name__}",
-                    "associated_field": self._associated_field,
+                    "associated_model": f"{self.associated_model.__module__}.{self.associated_model.__name__}",
+                    "associated_field": self.associated_field_name,
                 }
             )
         )
